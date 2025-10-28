@@ -11,6 +11,14 @@ async function bootstrap() {
   // Logger global para usar en toda la aplicación
   const logger = new Logger('Bootstrap');
 
+  // Habilitar CORS para permitir peticiones desde el frontend
+  app.enableCors({
+    origin: '*', // Permite todos los orígenes (cambiar en producción)
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+    allowedHeaders: '*',
+  });
+
   // Configurar validaciones globales con class-validator
   app.useGlobalPipes(
     new ValidationPipe({
