@@ -1,3 +1,4 @@
+import { BitacoraModule } from './bitacora/bitacora.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
@@ -16,6 +17,7 @@ import { DatabaseModule } from './database/database.module';
     }),
     DatabaseModule, // Módulo de conexión a PostgreSQL (Global)
     SampleModule, // Módulo de ejemplo con operaciones CRUD
+    BitacoraModule, // Módulo de bitácora
   ],
   controllers: [AppController],
   providers: [AppService],
