@@ -4,7 +4,6 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  // Crear la aplicación NestJS con logger personalizado
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'], // Niveles de log habilitados
   });
@@ -41,7 +40,6 @@ async function bootstrap() {
   const port = process.env.PORT ?? 3000;
   await app.listen(port);
 
-  // Log de inicio con información útil
   logger.log(`🚀 Aplicación corriendo en: http://localhost:${port}`);
   logger.log(`📚 Documentación Swagger en: http://localhost:${port}/api`);
 }
