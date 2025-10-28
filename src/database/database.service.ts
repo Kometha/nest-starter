@@ -97,7 +97,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
    * Ejecuta una función de PostgreSQL
    * @param functionName - Nombre de la función (puede incluir el esquema, ej: 'facturacion.ft_obtiene_formas_pago')
    * @param params - Parámetros de la función
-   * @returns Resultado de la función
+   * @returns Resultado de la función (desanidado automáticamente)
    */
   async executeFunction<T extends QueryResultRow = any>(
     functionName: string,
@@ -113,7 +113,39 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
 
     try {
       const result = await this.query<T>(query, params);
-      return result.rows;
+      const rows = result.rows;
+
+      // Desanidar el resultado si viene dentro de un objeto con el nombre de la función
+      // Ejemplo: [{ft_obtener_bitacora: [...]}] -> [...]
+      if (rows.length > 0 && rows[0]) {
+        const firstRow = rows[0];
+        const keys = Object.keys(firstRow);
+
+        // Si la primera fila tiene solo una key y es un array u objeto
+        if (keys.length === 1) {
+          const key = keys[0];
+          const value = firstRow[key];
+
+          // Si el valor es un array, devolverlo directamente
+          if (Array.isArray(value)) {
+            return value as T[];
+          }
+
+          // Si el valor es un objeto, intentar extraer el contenido
+          if (typeof value === 'object' && value !== null) {
+            // Si tiene una propiedad que coincide con el nombre de la función
+            const functionBaseName = functionName.split('.').pop();
+            if (functionBaseName && value[functionBaseName]) {
+              return Array.isArray(value[functionBaseName])
+                ? value[functionBaseName]
+                : [value[functionBaseName]];
+            }
+          }
+        }
+      }
+
+      // Si no se pudo desanidar, devolver las filas tal como están
+      return rows;
     } catch (error) {
       this.logger.error(
         `Error ejecutando función ${functionName}: ${error.message}`,

@@ -5,7 +5,7 @@ import { DatabaseService } from './database.service';
 /**
  * Módulo de base de datos
  * Proporciona el servicio de conexión a PostgreSQL
- * 
+ *
  * @Global - Hace que el servicio esté disponible en toda la aplicación
  * sin necesidad de importar el módulo en cada lugar
  */
@@ -17,3 +17,14 @@ import { DatabaseService } from './database.service';
 })
 export class DatabaseModule {}
 
+// CREATE FUNCTION [esquema].[funcion]() RETURNS json
+//     LANGUAGE plpgsql
+// AS
+// $$
+// BEGIN
+//     RETURN (SELECT JSON_AGG(ROW_TO_JSON(t))
+//             FROM (SELECT [campos]
+//                   FROM [esquema].[tabla] [alias]
+//                   WHERE [condicion]) [alias];
+// END;
+// $$;
