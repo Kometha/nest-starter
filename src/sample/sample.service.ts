@@ -7,7 +7,7 @@ import { randomUUID } from 'crypto';
 /**
  * Servicio para manejar la lógica de negocio de Sample
  * Implementa operaciones CRUD con almacenamiento in-memory
- * 
+ *
  * En una aplicación real, este servicio se conectaría a una base de datos
  * pero para el template usamos un Map en memoria para simplicidad
  */
@@ -52,7 +52,9 @@ export class SampleService {
    * @returns Array con todos los samples almacenados
    */
   findAll(): Sample[] {
-    this.logger.log(`Obteniendo todos los samples. Total: ${this.samples.size}`);
+    this.logger.log(
+      `Obteniendo todos los samples. Total: ${this.samples.size}`,
+    );
     return Array.from(this.samples.values());
   }
 
@@ -119,4 +121,3 @@ export class SampleService {
     this.logger.log(`Sample con ID ${id} eliminado exitosamente`);
   }
 }
-
