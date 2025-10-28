@@ -32,10 +32,6 @@ async function bootstrap() {
     )
     .setVersion('1.0')
     .addTag('sample', 'Endpoints de ejemplo para operaciones CRUD')
-    .addTag(
-      'formas-pago',
-      'Endpoints para obtener formas de pago desde PostgreSQL',
-    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

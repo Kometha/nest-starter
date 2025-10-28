@@ -68,4 +68,3 @@ export class Sample {
     Object.assign(this, partial);
   }
 }
-

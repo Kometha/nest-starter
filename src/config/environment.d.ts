@@ -1,6 +1,6 @@
 /**
  * Configuración de variables de entorno
- * 
+ *
  * Este archivo define las interfaces TypeScript para las variables de entorno
  * Ayuda a tener autocompletado y validación de tipos al usar ConfigService
  */
@@ -21,4 +21,3 @@ export interface EnvironmentVariables {
   DB_IDLE_TIMEOUT?: number;
   DB_CONNECTION_TIMEOUT?: number;
 }
-
