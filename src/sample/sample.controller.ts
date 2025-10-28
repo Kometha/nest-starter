@@ -25,11 +25,9 @@ import { Sample } from './entities/sample.entity';
 /**
  * Controlador de Sample
  * Expone endpoints REST para operaciones CRUD sobre samples
- * 
- * Todos los endpoints están documentados con Swagger
- * Las validaciones se aplican automáticamente mediante ValidationPipe global
+ *
  */
-@ApiTags('sample') // Agrupa los endpoints en Swagger bajo la etiqueta "sample"
+@ApiTags('sample')
 @Controller('sample')
 export class SampleController {
   private readonly logger = new Logger(SampleController.name);
@@ -67,7 +65,7 @@ export class SampleController {
   @ApiResponse({
     status: 200,
     description: 'Lista de todos los samples',
-    type: [Sample], // Array de Sample
+    type: [Sample],
   })
   findAll(): Sample[] {
     this.logger.log('GET /sample - Obtener todos los samples');
@@ -137,7 +135,7 @@ export class SampleController {
    * Elimina un sample
    */
   @Delete(':id')
-  @HttpCode(HttpStatus.NO_CONTENT) // 204 No Content al eliminar exitosamente
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Eliminar un sample' })
   @ApiParam({
     name: 'id',
@@ -157,4 +155,3 @@ export class SampleController {
     this.sampleService.remove(id);
   }
 }
-
